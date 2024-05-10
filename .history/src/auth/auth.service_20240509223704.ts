@@ -17,26 +17,22 @@ export class AuthService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     
 
-    
+    // const newUser = new this.userModel(createUserDto);
+    // return newUser.save();
+
     try {
-      const newUser = new this.userModel(createUserDto);
       
-      //1.- Encpritar la contraseña
+    } catch (error) {
+      if( error.code === 11000){
+        throw new BadRequestException(`${ createUserDto.email} already exists!` );
+      }
+      throw new InternalServerErrorException(`Something terrible happen!!` );
+    }
+    //1.- Encpritar la contraseña
 
     // 2.- Guardar el usuario 
 
     // 3.- Generar el JWT
-      
-      return newUser.save();
-      
-    } catch (error) {
-      console.log(error.get());
-      if( error.code === 11000 ){
-        throw new BadRequestException(`${ createUserDto.email } already exists!` )
-      }
-      throw new InternalServerErrorException('Something terrible happen!!' );
-    }
-    
  
   }
 

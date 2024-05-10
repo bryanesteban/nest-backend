@@ -20,13 +20,6 @@ export class AuthService {
     
     try {
       const newUser = new this.userModel(createUserDto);
-      
-      //1.- Encpritar la contraseña
-
-    // 2.- Guardar el usuario 
-
-    // 3.- Generar el JWT
-      
       return newUser.save();
       
     } catch (error) {
@@ -36,7 +29,11 @@ export class AuthService {
       }
       throw new InternalServerErrorException('Something terrible happen!!' );
     }
-    
+    //1.- Encpritar la contraseña
+
+    // 2.- Guardar el usuario 
+
+    // 3.- Generar el JWT
  
   }
 
