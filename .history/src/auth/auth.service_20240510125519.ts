@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, InternalServerErrorException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -6,7 +6,6 @@ import { User } from './entities/user.entity';
 import { Model } from 'mongoose';
 
 import * as bcryptjs from 'bcryptjs';
-import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
@@ -32,12 +31,16 @@ export class AuthService {
 
       await newUser.save();
       const {password:_,  ...user} = newUser.toJSON();
-
-
+      //1.- Encpritar la contraseña
+      
+      // 2.- Guardar el usuario 
+      
+      // 3.- Generar el JWT
+      
       return user;
       
     } catch (error) {
-
+      console.log(error);
       if( error.code === 11000 ){
         throw new BadRequestException(`${ createUserDto.email } already exists!` )
       }
@@ -45,31 +48,6 @@ export class AuthService {
     }
     
  
-  }
-
-  async login (loginDto: LoginDto) {
-  
-    const {email, password} = loginDto;
-
-    const user = await this.userModel.findOne({ email });
-
-    if( !user ){
-      throw new UnauthorizedException('Not valid credentials - email or password');
-    }
-    /**
-     * User(_id, name, email, roles, )
-     * token-> asdadada.safgsafsafas.fsafasdsadsa
-     */
-
-    if ( !bcryptjs.compareSync(password, user.password)){
-      throw new UnauthorizedException('Not valid credentials - email or password');
-    }
-    const {password:_, ...rest} = user.toJSON();
-
-    return {
-      ...rest,
-      token: 'ABC-123'
-    }
   }
 
   findAll() {

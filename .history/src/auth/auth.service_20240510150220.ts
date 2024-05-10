@@ -61,15 +61,7 @@ export class AuthService {
      * token-> asdadada.safgsafsafas.fsafasdsadsa
      */
 
-    if ( !bcryptjs.compareSync(password, user.password)){
-      throw new UnauthorizedException('Not valid credentials - email or password');
-    }
-    const {password:_, ...rest} = user.toJSON();
-
-    return {
-      ...rest,
-      token: 'ABC-123'
-    }
+    return 'Todo Bien';
   }
 
   findAll() {
