@@ -53,23 +53,11 @@ export class AuthService {
 
   async register(createUserDto: CreateUserDto) : Promise<LoginResponse>{
 
-    console.log(createUserDto);
 
-    try{
-      const user:User = await  this.create(createUserDto);
-
-      const {email} = user;
-      const userOne = await this.userModel.findOne({email});
-
-      return {
-        user: user,
-        token: this.getJwtToken({id: userOne.id})
-      }
-    }catch (error) {
-      throw new InternalServerErrorException('Something terrible happen!!' );
-
+    return {
+      user: user,
+      token: ''
     }
- 
   }
 
   async login (loginDto: LoginDto):Promise<LoginResponse> {

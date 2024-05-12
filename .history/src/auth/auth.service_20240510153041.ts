@@ -8,8 +8,6 @@ import { Model } from 'mongoose';
 import * as bcryptjs from 'bcryptjs';
 import { LoginDto } from './dto/login.dto';
 import { JwtService } from '@nestjs/jwt';
-import { JwtPayLoad } from 'src/interfaces/jwt-payload';
-import { LoginResponse } from 'src/interfaces/login-response';
 
 @Injectable()
 export class AuthService {
@@ -51,28 +49,7 @@ export class AuthService {
  
   }
 
-  async register(createUserDto: CreateUserDto) : Promise<LoginResponse>{
-
-    console.log(createUserDto);
-
-    try{
-      const user:User = await  this.create(createUserDto);
-
-      const {email} = user;
-      const userOne = await this.userModel.findOne({email});
-
-      return {
-        user: user,
-        token: this.getJwtToken({id: userOne.id})
-      }
-    }catch (error) {
-      throw new InternalServerErrorException('Something terrible happen!!' );
-
-    }
- 
-  }
-
-  async login (loginDto: LoginDto):Promise<LoginResponse> {
+  async login (loginDto: LoginDto) {
   
     const {email, password} = loginDto;
 
@@ -92,8 +69,8 @@ export class AuthService {
     const {password:_, ...rest} = user.toJSON();
 
     return {
-      user: rest,
-      token: this.getJwtToken( {id: user.id})
+      ...rest,
+      token: 'ABC-123'
     }
   }
 
@@ -111,10 +88,5 @@ export class AuthService {
 
   remove(id: number) {
     return `This action removes a #${id} auth`;
-  }
-
-  getJwtToken( payload: JwtPayLoad){
-    const token = this.jwtService.sign(payload);
-    return token;
   }
 }
