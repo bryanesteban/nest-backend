@@ -5,7 +5,6 @@ import { UpdateAuthDto } from './dto/update-auth.dto';
 import { CreateUserDto, LoginDto, RegisterUserDto } from './dto/index';
 import {  } from './dto/login.dto';
 import { AuthGuard } from 'src/guards/auth/auth.guard';
-import { User } from './entities/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -35,14 +34,8 @@ export class AuthController {
   }
 
   @Get('/check-token')
-  @UseGuards(AuthGuard)
-  checkTokem(@Request() req: Request):LoginResponse
-  {
-    const  user = req['user'] as User;
-    return {
-      user,
-      token: this.authService.getJwtToken({id: user._id})
-    }
+  checkTokem(@Request() req: Request):<LoginResponse>{
+
   }
 
 

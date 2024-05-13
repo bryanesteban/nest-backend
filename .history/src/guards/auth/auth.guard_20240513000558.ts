@@ -25,15 +25,14 @@ async canActivate(
   try {
     const payload = await this.jwtService.verifyAsync<JwtPayLoad>(
       token,
-      { secret: process.env.JWT_SEED }
+      {
+        secret: process.env.JWT_SEED
+      }
     );
-   
-    const user = await this.authService.findUserById( payload.id);
-    if( !user ) throw new UnauthorizedException(' User does not exists');
-
-    if( !user.isActive ) throw new UnauthorizedException(' User is not active');
-
-    request['user'] = user;
+    // 💡 We're assigning the payload to the request object here
+    // so that we can access it in our route handlers
+    console.log({payload});
+    request['id'] = payload.id;
 
 
   } catch (error) {

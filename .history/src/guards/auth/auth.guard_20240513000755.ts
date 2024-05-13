@@ -31,7 +31,6 @@ async canActivate(
     const user = await this.authService.findUserById( payload.id);
     if( !user ) throw new UnauthorizedException(' User does not exists');
 
-    if( !user.isActive ) throw new UnauthorizedException(' User is not active');
 
     request['user'] = user;
 

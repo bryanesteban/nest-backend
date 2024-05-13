@@ -110,7 +110,6 @@ export class AuthService {
     return rest;
   }
 
-
   findOne(id: number) {
     return `This action returns a #${id} auth`;
   }

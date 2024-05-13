@@ -110,6 +110,10 @@ export class AuthService {
     return rest;
   }
 
+  async checkToken( user: User){
+   
+
+  }
 
   findOne(id: number) {
     return `This action returns a #${id} auth`;

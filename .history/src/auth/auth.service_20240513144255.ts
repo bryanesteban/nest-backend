@@ -110,6 +110,16 @@ export class AuthService {
     return rest;
   }
 
+  async checkToken( userSearch: User){
+
+    const user = await this.userModel.findById( userSearch._id );
+    const { password, ...rest} = user.toJSON();
+    return {
+      user:user,
+      token: this.getJwtToken( {id: user.id})
+    };
+
+  }
 
   findOne(id: number) {
     return `This action returns a #${id} auth`;
