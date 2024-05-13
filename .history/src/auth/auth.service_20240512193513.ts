@@ -54,11 +54,11 @@ export class AuthService {
 
   async register(createUserDto: RegisterUserDto) : Promise<LoginResponse>{
 
-    
+    console.log(createUserDto);
 
     try{
       const user:User = await  this.create(createUserDto);
-      console.log(user);
+
       // const {email} = user;
       // const userOne = await this.userModel.findOne({email});
 
@@ -100,8 +100,8 @@ export class AuthService {
     }
   }
 
-  findAll(): Promise<User[]>{
-    return  this.userModel.find();
+  findAll() {
+    return `This action returns all auth`;
   }
 
   findOne(id: number) {

@@ -100,8 +100,8 @@ export class AuthService {
     }
   }
 
-  findAll(): Promise<User[]>{
-    return  this.userModel.find();
+  findAll() {
+    return `This action returns all auth`;
   }
 
   findOne(id: number) {

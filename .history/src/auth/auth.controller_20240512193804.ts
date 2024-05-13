@@ -19,7 +19,7 @@ export class AuthController {
   }
 
   @Post('/register')
-  register( @Body() registerDto: RegisterUserDto ) {
+  register(@Body() registerDto: RegisterUserDto) {
     return this.authService.register(registerDto);
   }
 
